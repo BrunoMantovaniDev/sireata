@@ -45,16 +45,28 @@ public class ConnectionDAO {
             }
         }
         
-        public static void closeConnection(Connection con, PreparedStatement stmt){
+        public static void closeConnection(Connection con, Statement stm){
             
             closeConnection(con);
             try {
-                if(stmt != null){
-                    stmt.close();
+                if(stm !=null){
+                    stm.close();
                 }
             } catch (SQLException e) {
             }
         }
+        public static void closeConnection(Connection con, PreparedStatement stmt ){
+            
+            closeConnection(con);
+            try {
+                if(stmt != null ){
+                    stmt.close();
+                    
+                }
+            } catch (SQLException e) {
+            }
+        }
+        
         
         public static void closeConnection(Connection con,PreparedStatement stmt, ResultSet rs ){
             
@@ -66,6 +78,21 @@ public class ConnectionDAO {
             } catch (SQLException e) {
             }
         }
+        
+        public static void closeConnection(Connection con,Statement stm, ResultSet rs ){
+            
+            closeConnection(con, stm);
+            try {
+                if(rs != null){
+                    rs.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        
+        
+        
+        
         
         
         

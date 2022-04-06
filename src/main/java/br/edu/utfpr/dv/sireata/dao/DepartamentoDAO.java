@@ -35,12 +35,7 @@ public class DepartamentoDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -67,12 +62,7 @@ public class DepartamentoDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -97,12 +87,7 @@ public class DepartamentoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -127,12 +112,7 @@ public class DepartamentoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -159,12 +139,7 @@ public class DepartamentoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -193,12 +168,7 @@ public class DepartamentoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -244,12 +214,7 @@ public class DepartamentoDAO {
 			
 			return departamento.getIdDepartamento();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	

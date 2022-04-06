@@ -32,12 +32,7 @@ public class CampusDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -60,25 +55,20 @@ public class CampusDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
 	public List<Campus> listarTodos(boolean apenasAtivos) throws SQLException{
 		Connection conn = null;
-		Statement stmt = null;
+		Statement stm = null;
 		ResultSet rs = null;
 		
 		try{
 			conn = ConnectionDAO.getInstance().getConnection();
-			stmt = conn.createStatement();
+			stm = conn.createStatement();
 		
-			rs = stmt.executeQuery("SELECT * FROM campus " + (apenasAtivos ? " WHERE ativo=1" : "") + " ORDER BY nome");
+			rs = stm.executeQuery("SELECT * FROM campus " + (apenasAtivos ? " WHERE ativo=1" : "") + " ORDER BY nome");
 		
 			List<Campus> list = new ArrayList<Campus>();
 			
@@ -88,12 +78,7 @@ public class CampusDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stm, rs);
 		}
 	}
 	
@@ -120,12 +105,7 @@ public class CampusDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -154,12 +134,7 @@ public class CampusDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -204,12 +179,7 @@ public class CampusDAO {
 			
 			return campus.getIdCampus();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	

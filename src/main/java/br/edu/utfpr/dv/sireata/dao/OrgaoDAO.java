@@ -70,12 +70,7 @@ public class OrgaoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -105,12 +100,7 @@ public class OrgaoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -140,12 +130,7 @@ public class OrgaoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -173,12 +158,7 @@ public class OrgaoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -208,12 +188,7 @@ public class OrgaoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -239,12 +214,7 @@ public class OrgaoDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -270,13 +240,7 @@ public class OrgaoDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
-		}
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 	}
 	
 	public boolean isMembro(int idOrgao, int idUsuario) throws SQLException{
@@ -296,12 +260,7 @@ public class OrgaoDAO {
 			
 			return rs.next();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	

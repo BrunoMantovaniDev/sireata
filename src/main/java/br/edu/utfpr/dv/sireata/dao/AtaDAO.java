@@ -40,12 +40,7 @@ public class AtaDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -77,12 +72,7 @@ public class AtaDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -112,12 +102,7 @@ public class AtaDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -143,25 +128,18 @@ public class AtaDAO {
 				return 1;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
 	public List<Ata> listar(int idUsuario, int idCampus, int idDepartamento, int idOrgao, boolean publicadas) throws SQLException{
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
 		try{
 			conn = ConnectionDAO.getInstance().getConnection();
-			stmt = conn.createStatement();
-		
-			rs = stmt.executeQuery("SELECT DISTINCT atas.*, orgaos.nome AS orgao, p.nome AS presidente, s.nome AS secretario " +
+			stmt = conn.prepareStatement("SELECT DISTINCT atas.*, orgaos.nome AS orgao, p.nome AS presidente, s.nome AS secretario " +
 					"FROM atas INNER JOIN ataparticipantes ON ataparticipantes.idAta=atas.idAta " +
 					"INNER JOIN orgaos ON orgaos.idOrgao=atas.idOrgao " +
 					"INNER JOIN departamentos ON departamentos.idDepartamento=orgaos.idDepartamento " +
@@ -173,6 +151,8 @@ public class AtaDAO {
 					(idDepartamento > 0 ? " AND departamentos.idDepartamento = " + String.valueOf(idDepartamento) : "") +
 					(idOrgao > 0 ? " AND atas.idOrgao = " + String.valueOf(idOrgao) : "") +
 					"ORDER BY atas.data DESC");
+		
+			rs = stmt.executeQuery();
 			
 			List<Ata> list = new ArrayList<Ata>();
 			
@@ -182,12 +162,7 @@ public class AtaDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -450,12 +425,7 @@ public class AtaDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -506,12 +476,7 @@ public class AtaDAO {
 			
 			return ata.getIdAta();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -529,10 +494,7 @@ public class AtaDAO {
 			
 			stmt.execute();
 		}finally{
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt );
 		}
 	}
 	
@@ -546,10 +508,7 @@ public class AtaDAO {
 		
 			stmt.execute("UPDATE atas SET aceitarComentarios=1 WHERE publicada=0 AND idAta=" + String.valueOf(idAta));
 		}finally{
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt );
 		}
 	}
 	
@@ -563,10 +522,7 @@ public class AtaDAO {
 		
 			stmt.execute("UPDATE atas SET aceitarComentarios=0 WHERE idAta=" + String.valueOf(idAta));
 		}finally{
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt );
 		}
 	}
 	
@@ -615,12 +571,7 @@ public class AtaDAO {
 				return false;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -638,12 +589,7 @@ public class AtaDAO {
 		
 			return rs.next();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -661,12 +607,7 @@ public class AtaDAO {
 		
 			return rs.next();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -688,12 +629,7 @@ public class AtaDAO {
 				return false;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt, rs);
 		}
 	}
 	
@@ -720,10 +656,7 @@ public class AtaDAO {
 			throw ex;
 		}finally{
 			conn.setAutoCommit(true);
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn,stmt);
 		}
 	}
 
