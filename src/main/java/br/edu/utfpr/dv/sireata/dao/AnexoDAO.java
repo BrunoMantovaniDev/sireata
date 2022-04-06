@@ -32,26 +32,23 @@ public class AnexoDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+                    
+                    // criar close conection para reduzir os IFs
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
 	public List<Anexo> listarPorAta(int idAta) throws SQLException{
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
 		try{
 			conn = ConnectionDAO.getInstance().getConnection();
-			stmt = conn.createStatement();
-		
-			rs = stmt.executeQuery("SELECT anexos.* FROM anexos " +
+			stmt = conn.prepareStatement("SELECT anexos.* FROM anexos " +
 				"WHERE idAta=" + String.valueOf(idAta) + " ORDER BY anexos.ordem");
+		
+			rs = stmt.executeQuery();
 		
 			List<Anexo> list = new ArrayList<Anexo>();
 			
@@ -61,12 +58,7 @@ public class AnexoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -106,29 +98,21 @@ public class AnexoDAO {
 			
 			return anexo.getIdAnexo();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt, rs);
 		}
 	}
 	
 	public void excluir(int id) throws SQLException{
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		
 		try{
 			conn = ConnectionDAO.getInstance().getConnection();
-			stmt = conn.createStatement();
+			stmt = conn.prepareStatement("DELETE FROM anexos WHERE idanexo=" + String.valueOf(id));
 		
-			stmt.execute("DELETE FROM anexos WHERE idanexo=" + String.valueOf(id));
+			stmt.execute();
 		}finally{
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			ConnectionDAO.closeConnection(conn, stmt);
 		}
 	}
 	

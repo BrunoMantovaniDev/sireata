@@ -2,6 +2,8 @@ package br.edu.utfpr.dv.sireata.dao;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -33,6 +35,40 @@ public class ConnectionDAO {
 	public Connection getConnection() throws SQLException{
 		return this.datasource.getConnection();
 	}
+        
+        public static void closeConnection(Connection con){
+            try {
+                if(con != null){
+                    con.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        
+        public static void closeConnection(Connection con, PreparedStatement stmt){
+            
+            closeConnection(con);
+            try {
+                if(stmt != null){
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        
+        public static void closeConnection(Connection con,PreparedStatement stmt, ResultSet rs ){
+            
+            closeConnection(con, stmt);
+            try {
+                if(rs != null){
+                    rs.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        
+        
+        
 	
 	private void createDataSource() throws SQLException{
 		String user, password, server, database, driver, type; 
